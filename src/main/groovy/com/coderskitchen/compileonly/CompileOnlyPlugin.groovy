@@ -46,7 +46,7 @@ class CompileOnlyPlugin implements Plugin<Project> {
 
 		t.configurations { compileOnly }
 		def cc = {
-			compileClasspath += t.configurations.compileOnly
+			compileClasspath += [t.configurations.compileOnly]
 		}
 		t.sourceSets {
 			main cc
@@ -56,11 +56,11 @@ class CompileOnlyPlugin implements Plugin<Project> {
 		t.afterEvaluate {
 
 			if (plugins.hasPlugin('idea')) {
-				t.idea.module.scopes.PROVIDED.plus += t.configurations.compileOnly
+				t.idea.module.scopes.PROVIDED.plus += [t.configurations.compileOnly]
 			}
 
 			if (plugins.hasPlugin('eclipse')) {
-				t.eclipse.classpath.plusConfigurations += t.configurations.compileOnly
+				t.eclipse.classpath.plusConfigurations += [t.configurations.compileOnly]
 			}
 		}
 
